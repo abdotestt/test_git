@@ -11,17 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tickets', function (Blueprint $table) {
-            $table->id('ticket_id');
-            $table->unsignedBigInteger('user_id');
-            $table->date('date_achat');
-            $table->time('heure')->nullable();
-            $table->decimal('montant', 10, 2);
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('tickets')) {
+            Schema::create('tickets', function (Blueprint $table) {
+                $table->id('ticket_id');
+                $table->unsignedBigInteger('user_id');
+                $table->unsignedBigInteger('categorie_id');
+    
+                $table->date('date_achat');
+                $table->time('heure')->nullable();
+                $table->decimal('montant', 10, 2);
+                $table->foreign('user_id')->references('id')->on('users');
+                $table->foreign('categorie_id')->references('id')->on('categories');
+    
+                $table->timestamps();
+            });
+        }
     }
-
+    
     /**
      * Reverse the migrations.
      */

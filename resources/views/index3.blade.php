@@ -160,12 +160,15 @@
                                         <th>categorie2</th>
                                         <th>categorie3</th>
                                         <th>categorie4</th>
+                                        <th>categorie5</th>
+
                                     </tr>
                                     <tr>
-                                        <td>{{$sum_cat1}}</td>
-                                        <td>{{$sum_cat2}}</td>
-                                        <td>{{$sum_cat3}}</td>
-                                        <td>{{$sum_cat4}}</td>
+                                        <td>{{$mc}}</td>
+                                        <td>{{$wc}}</td>
+                                        <td>{{$k4c}}</td>
+                                        <td>{{$k5c}}</td>
+                                        <td>{{$k6c}}</td>
                                     </tr>
 
 
