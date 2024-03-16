@@ -123,6 +123,8 @@
             <form action="{{ route('acheter-ticket') }}" method="POST">
                 @csrf
                 <input type="hidden" value="{{ $montant }}" name="montant" />
+                <input type="hidden" value="{{ $cat_id }}" name="cat_id" />
+
                 <button type="submit" class="btn btn-success" onclick="print_page()">Confrmer et imprimmer ticket</button>
             </form>
         </div>

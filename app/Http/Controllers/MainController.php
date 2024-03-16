@@ -18,11 +18,11 @@ class MainController extends Controller
         $montant = Categorie::where('id', $id)->value('prix');
         $libelle = Categorie::where('id', $id)->value('libelle');
         $ticketNumber = Ticket::get()->count()+1;
-
+        $cat_id = $id;
         // $montant = $request->input('montant');
 
 
-        return view('confirmation',compact('dateAchat','heureDebut','montant','libelle','ticketNumber'));
+        return view('confirmation',compact('dateAchat','heureDebut','montant','libelle','ticketNumber','cat_id'));
         // return dd($id);
     }
 
@@ -33,14 +33,21 @@ class MainController extends Controller
         $dateAchat = now();
         $heureDebut = now()->tz('Europe/Paris')->format('H:i:s');
         $montant = $request->input('montant');
+        $cat_id = $request->input('cat_id');
 
-        // Créer une ligne de ticket
-        $ticket = Ticket::create([
+        $ticket = new Ticket([
             'user_id' => $user_id,
             'date_achat' => $dateAchat,
             'heure' => $heureDebut,
             'montant' => $montant,
         ]);
+        
+        if (!empty($cat_id)) {
+            $ticket->categorie_id = $cat_id;
+        }
+        
+        $ticket->save();
+        
         // // Créer une ligne de détails associée
         // $idC = $this->getCaisseId();
         // DetailsCaisseJournaliere::create([
@@ -55,12 +62,10 @@ class MainController extends Controller
 
     protected function getCaisseId()
     {
-        // Obtenez la caisse journalière pour aujourd'hui, créez si elle n'existe pas encore
         $date = now()->toDateString();
 
         $caisse = CaisseJournaliere::where('date_caissse', $date)->first();
 
-        // If the record doesn't exist, create a new one
         if (!$caisse) {
             $caisse = CaisseJournaliere::create([
                 'date_caissse' => $date,
@@ -74,12 +79,10 @@ class MainController extends Controller
 
     protected function updateCaisseJournaliere($montant)
     {
-        // Obtenez la caisse journalière pour aujourd'hui, créez si elle n'existe pas encore
         $date = now()->toDateString();
 
 $caisse = CaisseJournaliere::where('date_caissse', $date)->first();
 
-// If the record doesn't exist, create a new one
 if (!$caisse) {
     $caisse = CaisseJournaliere::create([
         'date_caissse' => $date,
@@ -88,7 +91,6 @@ if (!$caisse) {
 }
 
 
-        // Mettez à jour le montant total
         $caisse->montant_total += $montant;
         $caisse->save();
 }

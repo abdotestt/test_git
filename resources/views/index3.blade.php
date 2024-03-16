@@ -154,13 +154,14 @@
                                 </div>
                              <div class="card  text-black mb-4">
                                 <table>
-                                        <tr>                                    <th>
-                                            categori1
+                                        <tr>    
+                                        <th>
+                                            homme
                                         </th>
-                                        <th>categorie2</th>
-                                        <th>categorie3</th>
-                                        <th>categorie4</th>
-                                        <th>categorie5</th>
+                                        <th>femme</th>
+                                        <th>enfant 4 ans</th>
+                                        <th>enfant 5 ans</th>
+                                        <th>enfant 6 ans</th>
 
                                     </tr>
                                     <tr>
